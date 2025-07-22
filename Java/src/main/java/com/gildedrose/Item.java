@@ -23,54 +23,37 @@ public class Item {
         boolean isAgedBrie = name.equals("Aged Brie");
         if (isAgedBrie) {
             if (quality < 50) {
-                quality = quality + 1;
+                quality++;
 
-                if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (sellIn < 11) {
-                        if (quality < 50) {
-                            quality = quality + 1;
-                        }
-                    }
-
-                    if (sellIn < 6) {
-                        if (quality < 50) {
-                            quality = quality + 1;
-                        }
-                    }
-                }
             }
 
-            if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                sellIn = sellIn - 1;
-            }
+            sellIn--;
 
             if (sellIn < 0) {
                 if (quality < 50) {
-                    quality = quality + 1;
+                    quality++;
                 }
             }
         } else {
             if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (quality > 0) {
                     if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                        quality = quality - 1;
+                        quality--;
                     }
                 }
             } else {
                 if (quality < 50) {
-                    quality = quality + 1;
+                    quality++;
 
-                    if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (sellIn < 11) {
-                            if (quality < 50) {
-                                quality = quality + 1;
-                            }
+                    if (sellIn < 11) {
+                        if (quality < 50) {
+                            quality++;
                         }
+                    }
 
-                        if (sellIn < 6) {
-                            if (quality < 50) {
-                                quality = quality + 1;
-                            }
+                    if (sellIn < 6) {
+                        if (quality < 50) {
+                            quality++;
                         }
                     }
                 }
@@ -84,7 +67,7 @@ public class Item {
                 if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                     if (quality > 0) {
                         if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                            quality = quality - 1;
+                            quality--;
                         }
                     }
                 } else {
