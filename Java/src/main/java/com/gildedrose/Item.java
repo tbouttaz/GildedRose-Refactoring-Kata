@@ -20,61 +20,82 @@ public class Item {
     }
 
     void process() {
-        boolean isAgedBrie = name.equals("Aged Brie");
-        if (isAgedBrie) {
+        if (isAgedBrie()) {
+            processAgedBrie();
+        } else if (isBackstagePass()) {
+            processBackstagePass();
+        } else if (isSulfuras()) {
+            // Nothing to do - SellIn and Quality stay the same
+            return;
+        } else {
+            processOtherItems();
+        }
+    }
+
+    private boolean isSulfuras() {
+        return name.equals("Sulfuras, Hand of Ragnaros");
+    }
+
+    private boolean isBackstagePass() {
+        return name.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+
+    private boolean isAgedBrie() {
+        return name.equals("Aged Brie");
+    }
+
+    private void processOtherItems() {
+        if (quality > 0) {
+            quality--;
+        }
+
+        sellIn = sellIn - 1;
+
+        if (sellIn < 0) {
+            if (quality > 0) {
+                quality--;
+            }
+        }
+    }
+
+    private void processBackstagePass() {
+        if (quality < 50) {
+            quality++;
+
+            if (sellIn < 11) {
+                if (quality < 50) {
+                    quality++;
+                }
+            }
+
+            if (sellIn < 6) {
+                if (quality < 50) {
+                    quality++;
+                }
+            }
+        }
+
+        sellIn = sellIn - 1;
+
+        if (sellIn < 0) {
+            quality = 0;
+        }
+    }
+
+    private void processAgedBrie() {
+        if (quality < 50) {
+            quality++;
+
+        }
+
+        sellIn--;
+
+        if (sellIn < 0) {
             if (quality < 50) {
                 quality++;
-
-            }
-
-            sellIn--;
-
-            if (sellIn < 0) {
-                if (quality < 50) {
-                    quality++;
-                }
-            }
-        } else {
-            if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (quality > 0) {
-                    if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                        quality--;
-                    }
-                }
-            } else {
-                if (quality < 50) {
-                    quality++;
-
-                    if (sellIn < 11) {
-                        if (quality < 50) {
-                            quality++;
-                        }
-                    }
-
-                    if (sellIn < 6) {
-                        if (quality < 50) {
-                            quality++;
-                        }
-                    }
-                }
-            }
-
-            if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                sellIn = sellIn - 1;
-            }
-
-            if (sellIn < 0) {
-                if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (quality > 0) {
-                        if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                            quality--;
-                        }
-                    }
-                } else {
-                    quality = 0;
-                }
             }
         }
     }
 
 }
+
